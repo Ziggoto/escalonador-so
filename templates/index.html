@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>Escalonador</title>
+		<meta name="description" content="">
+		<meta name="author" content="Fábio M. Theophilo">
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<script src="static/jquery-2.1.1.min.js"></script>
+		<script src="static/jcanvas.min.js"></script>
+		<script>
+			var ws = new WebSocket("ws://localhost:8888/websocket");
+			
+			ws.onopen = function() {
+			   //ws.send("Hello, world");
+			};
+			ws.onmessage = function (evt) {
+			  // alert(evt.data);
+			};
+		</script>
+		<script>
+		$(function(){
+			
+			$('canvas').drawRect({
+			strokeStyle: '#000',
+  			strokeWidth: 2,
+			  x: 200, y: 30,
+			  width: 200,
+			  height: 50
+			});
+
+		});
+		</script>
+		
+	</head>
+
+	<body>
+		<p>
+			Selecione o tipo de algoritimo:
+			<select id="algoritmo">
+				<option value="0">FIFO</option>
+				<option value="1">Filas de Prioridade Híbrido</option>
+				<option value="2">Round Robin</option>
+				<option value="3">Shortest Job First</option>
+				<option value="4">Shortest Remaining Time</option>
+			</select>
+			
+			Nº de Core's:
+				<input type="text" size="1" name="cores" id="cores" placeholder="4" />
+		</p>
+		<p>
+			<canvas id="escalonador" width="500" height="300" style="border:1px solid black;">
+			</canvas>
+		</p>
+	</body>
+</html>
