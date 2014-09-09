@@ -22,7 +22,7 @@ class Escalonador():
         
     
     def add_processo(self, processo):
-        pass
+        self.aptos.append(processo)
     
     def draw_img(self):
         pass
@@ -36,6 +36,7 @@ class Escalonador():
             self.cores.add_process(p)
             del self.aptos[0]
         self.quantum += 1
+        self.cores.processa()
     
     def get_prox(self):
         if len(self.aptos) > 0:
