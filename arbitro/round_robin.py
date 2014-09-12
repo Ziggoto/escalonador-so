@@ -12,5 +12,3 @@ class RoundRobin(core.escalonador.Escalonador):
                 self.cores.rm_process(i)
         
         core.escalonador.Escalonador.executa(self)
-     
-    

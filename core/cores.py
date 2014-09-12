@@ -39,7 +39,7 @@ class Cores:
             if self.cores[i] == None:
                 return False
         return True
-    
+       
     # Diminui o tempo restante dos processos
     def processa(self):
         p = None
@@ -49,5 +49,4 @@ class Cores:
                 p.tempo_restante -= 1
             else:
                 self.cores[i] = None
-
-                
+    
