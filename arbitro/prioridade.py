@@ -12,7 +12,7 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
         f3 = [] # Fila de baixa prioridade
         f4 = [] # Fila de baixissima prioridade
         
-        for i in range(self.aptos):
+        for i in self.aptos:
             if i.prioridade == 0:
                 f1.append(i)
             elif i.prioridade == 1:
