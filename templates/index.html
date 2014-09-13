@@ -24,13 +24,11 @@
 		</script>
 		<script>
 		$(function(){
-			
-			$('canvas').drawRect({
-			strokeStyle: '#000',
-  			strokeWidth: 2,
-			  x: 200, y: 30,
-			  width: 200,
-			  height: 50
+			$('canvas').drawImage({
+			  source: 'static/cone.png',
+			  x: 200, y: 150,
+			  scale: 0.5,
+			  fromCenter: true
 			});
 
 		});
