@@ -25,9 +25,9 @@
 		<script>
 		$(function(){
 			$('canvas').drawImage({
-			  source: 'static/cone.png',
-			  x: 200, y: 150,
-			  scale: 0.5,
+			  source: 'static/escalonador.png',
+			  x: 600, y: 200,
+			  scale: 1,
 			  fromCenter: true
 			});
 
@@ -49,10 +49,17 @@
 			
 			Nº de Core's:
 				<input type="text" size="1" name="cores" id="cores" placeholder="4" />
+
+			Tamanho da fila:
+				<input type="text" size="1" name="cores" id="cores" placeholder="4" />
+
+				<input type="button" value="Enviar">
 		</p>
-		<p>
-			<canvas id="escalonador" width="500" height="300" style="border:1px solid black;">
+		<hr />
+		<p align="center">
+			<canvas id="escalonador" width="1200" height="500">
 			</canvas>
 		</p>
+
 	</body>
 </html>

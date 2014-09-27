@@ -1,4 +1,3 @@
-from core.processo import Processo
 class Cores:
     
     def __init__(self, max=4):
@@ -49,4 +48,3 @@ class Cores:
                 p.tempo_restante -= 1
             else:
                 self.cores[i] = None
-    

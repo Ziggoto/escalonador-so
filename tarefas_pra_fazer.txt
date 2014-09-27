@@ -1,0 +1,2 @@
+1. Consertar o Fila de Prioridade com Round-Robin
+2. Gerar um padrão para as mensagens
