@@ -36,3 +36,6 @@ class Parser():
             self.escalonador = ShortestRemainingTime(self.cores, self.filas)
         else:
             print "Erro ao inicializar o escalonador"
+    
+    def start(self):
+        pass

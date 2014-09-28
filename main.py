@@ -18,7 +18,9 @@ class EchoWebSocket(websocket.WebSocketHandler):
         print "Escalonador criado!"
 
     def on_message(self, message):
-        self.write_message(u"You said: " + message)
+        #self.write_message(u"You said: " + message)
+        t = Teste(self)
+        t.envia_msg(message)
 
     def on_close(self):
         print "WebSocket closed"

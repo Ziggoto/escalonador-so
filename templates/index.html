@@ -27,13 +27,15 @@
 
 			//TODO fazer a lógica para redesenhar...
 			ws.onmessage = function (evt) {
-			console.log("Desenhando...")
+			//alert(evt.data);
+			console.log("Desenhando...");
+			
 			$('canvas').drawImage({
 				source: 'static/escalonador.png',
 				x: 600, y: 200,
 				scale: 1,
 				fromCenter: true
-			 });
+			});
 			};
 		</script>
 		<script>

@@ -4,4 +4,5 @@
 [x] 4. Terminar o parser;
 [ ] 5. Fazer que o desenho se atualize periodicamente;
 [ ] 6. Mudar a forma que os processos são desenhados (mostra tempo decrementando)
+[ ] 7. Fazer desenhar a Fila de Prioridade com Round-Robin
  

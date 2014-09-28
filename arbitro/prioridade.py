@@ -6,6 +6,7 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
     
     def __init__(self, cores=4, processos_aptos=10):
         arbitro.round_robin.RoundRobin.__init__(self, cores, processos_aptos)
+        self.algoritimo = "Fila de Prioridade com RoundRobin"
         
         self.f1 = [] # Fila de alta prioridade
         self.f2 = [] # Fila de media prioridade
@@ -73,6 +74,10 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
         return None
         
 f = FilaPrioridade()
+f.draw_img()
+
+#Teste parado:
+'''
 print "Fila de Alta Prioridade: ",
 print f.f1
 print "Fila de Media Prioridade: ",
@@ -93,3 +98,4 @@ for i in range(10):
 
     print f.cores.cores
     print f.filas
+'''

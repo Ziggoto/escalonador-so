@@ -5,6 +5,7 @@ class ShortestRemainingTime(arbitro.round_robin.RoundRobin):
     
     def __init__(self, cores=4, processos_aptos=10):
         arbitro.round_robin.RoundRobin.__init__(self, cores, processos_aptos)
+        self.algoritimo = "Shortest Remaining Time"
         
     def add_processo(self, processo):
         if len(self.aptos) == 0:

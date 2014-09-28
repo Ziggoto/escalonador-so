@@ -12,6 +12,7 @@
 
 from cores import Cores
 from processo import Processo
+from desenha import Desenho
 
 class Escalonador():
     
@@ -20,6 +21,7 @@ class Escalonador():
         self.aptos = []
         self.executando = self.cores.cores
         self.quantum = 0
+        self.algoritimo = ""
         
         for i in range(processos_aptos):
             self.aptos.append(Processo(i))
@@ -29,7 +31,9 @@ class Escalonador():
         self.aptos.append(processo)
     
     def draw_img(self):
-        pass
+        fila = self.aptos if self.algoritimo != "Fila de Prioridade com RoundRobin" else self.filas
+        desenho = Desenho(cores=self.cores, algoritimo=self.algoritimo, fila_aptos=fila)
+        desenho.draw()
     
     def executa(self):
         p = None
