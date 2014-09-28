@@ -18,8 +18,10 @@
 			ws.onopen = function() {
 			   //ws.send("Hello, world");
 			};
+
+			//TODO fazer a lógica para redesenhar...
 			ws.onmessage = function (evt) {
-			  // alert(evt.data);
+			  alert(evt.data);
 			};
 		</script>
 		<script>
@@ -29,6 +31,21 @@
 			  x: 600, y: 200,
 			  scale: 1,
 			  fromCenter: true
+			});
+			
+			$("#envia").click(function(){
+				var algoritimo = $("#algoritmo").val();
+				var cores = $("#cores").val();
+				var filas = $("#fila").val();
+
+				var msg = {
+					algoritimo: algoritimo,
+					cores: cores,
+					filas: filas
+				}
+
+				ws.send(JSON.stringify(msg));
+				console.log(msg);
 			});
 
 		});
@@ -51,9 +68,9 @@
 				<input type="text" size="1" name="cores" id="cores" placeholder="4" />
 
 			Tamanho da fila:
-				<input type="text" size="1" name="cores" id="cores" placeholder="4" />
+				<input type="text" size="1" name="fila" id="fila" placeholder="4" />
 
-				<input type="button" value="Enviar">
+				<input type="button" id="envia" value="Enviar">
 		</p>
 		<hr />
 		<p align="center">

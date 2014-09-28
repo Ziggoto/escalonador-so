@@ -1,2 +1,4 @@
-1. Consertar o Fila de Prioridade com Round-Robin
-2. Gerar um padrão para as mensagens
+1. Consertar o Fila de Prioridade com Round-Robin;
+2. Gerar um padrão para as mensagens;
+3. Fazer a lógica para redesenhar no front-end;
+4. Terminar o parser;

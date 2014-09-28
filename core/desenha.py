@@ -1,29 +1,34 @@
 from PIL import Image, ImageDraw, ImageFont
+from processo import Processo
+from cores import Cores
 
 class Caixa:
+    width = 30
+    height = 30
     
-    def __init__(self, dr, pos, texto):
+    def __init__(self, dr, pos, processo):
         self.dr = dr
         self.pos = pos
         self.x, self.y = pos
-        self.texto = texto
+        self.processo = processo
         
-        self.width = 30
-        self.height = 30
-        
-        nova_pos = ((self.x, self.y), (self.x + self.width, self.y + self.height))
+        nova_pos = ((self.x, self.y), (self.x + Caixa.width, self.y + Caixa.height))
         dr.rectangle(nova_pos, fill="white", outline="black")
         
-        dr.text((self.x + self.width/3, self.y + self.height/3), self.texto, fill="black")
+        dr.text((self.x + Caixa.width/3, self.y + Caixa.height/3), processo, fill="black")
 
 class Desenho():
     
-    def __init__(self, cores=4, algoritimo="", tamanho_fila=20,size=(1200, 350)):
-        self.size = size
-        self.x, self.y = size
-        self.im = Image.new('RGB', self.size, "white")
-        self.dr = ImageDraw.Draw(self.im)
+    def __init__(self, cores=Cores(), algoritimo="", fila_aptos = []):
+        self.tamanho_fila = len(fila_aptos)
         self.tamanho_fonte = 12
+        self.max_filas = 37 #Calculado a partir de muitas e muitas tentativas
+        
+        self.x = 1200
+        self.y = (120 + self.tamanho_fonte + (self.tamanho_fila / self.max_filas + 1) * Caixa.height)
+        
+        self.im = Image.new('RGB', (self.x, self.y), "white")
+        self.dr = ImageDraw.Draw(self.im)
         
         self.fonte = ImageFont.truetype("FreeSansBold.ttf", self.tamanho_fonte)
         self.fonte_titulo = ImageFont.truetype("FreeSansBold.ttf", 22)
@@ -32,7 +37,7 @@ class Desenho():
         self.quantum = 1
         self.algoritimo = algoritimo
         self.cores = cores
-        self.tamanho_fila = tamanho_fila
+        self.fila_aptos = fila_aptos
         
     def draw(self):
         dr = self.dr
@@ -41,13 +46,21 @@ class Desenho():
         dr.text((self.x/2, 5), self.algoritimo, fill="black", font=self.fonte_titulo)
         dr.text((30, 35+self.tamanho_fonte), "Cores:", fill="black")
         
-        for i in range(self.cores):
-            Caixa(dr, (30+i*30, 60), str(i+1))
+        #Desenha os cores
+        pos = 0
+        for i in self.cores.cores:
+            if(i == None):
+                Caixa(dr, (30+pos*30, 60), " ")
+            else:
+                Caixa(dr, (30+pos*30, 60), str(i))
+            pos += 1
         
         dr.text((30, 100), "Fila de aptos:", fill="black")
         
-        m = 37 #Calculado a partir de muitas e muitas tentativas
+        m = self.max_filas 
+        cont = 0
         
+        #Desenha a fila de aptos
         for i in range(self.tamanho_fila/m + 1):
             if self.tamanho_fila < m:
                aux = self.tamanho_fila
@@ -56,11 +69,8 @@ class Desenho():
                 self.tamanho_fila -= m
             
             for j in range(aux):
-                Caixa(dr, (30+j*30, 100+self.tamanho_fonte+i*30), str(j+1))
+                Caixa(dr, (30+j*30, 100+self.tamanho_fonte+i*30), str(self.fila_aptos[cont]))
+                cont += 1
                 
         self.im.save("../static/escalonador.png")        
         self.quantum += 1
-        
-
-d = Desenho(tamanho_fila=50)
-d.draw()
