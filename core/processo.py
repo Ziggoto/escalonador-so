@@ -19,12 +19,13 @@ class Processo():
         self.tempo_restante = self.tempo_necessario #Inicialmente são iguais
         self.estado = "esperando"
         self.pid = pid
+        self.quantum_necessario = 4 - self.prioridade #Somente para o Fila de Prioridade
         
     def decrementa_tempo(self):
         self.tempo_necessario -= 1
         
     def __str__(self):
-        return str(self.pid)
+        return str(self.quantum_necessario)
     
     def __repr__(self):
         return self.__str__()

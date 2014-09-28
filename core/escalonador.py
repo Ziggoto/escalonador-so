@@ -11,14 +11,18 @@
 '''
 
 from cores import Cores
+from processo import Processo
 
 class Escalonador():
     
-    def __init__(self, cores=4):
+    def __init__(self, cores=4, processos_aptos=10):
         self.cores = Cores(cores)
         self.aptos = []
         self.executando = self.cores.cores
         self.quantum = 0
+        
+        for i in range(processos_aptos):
+            self.aptos.append(Processo(i))
         
     
     def add_processo(self, processo):

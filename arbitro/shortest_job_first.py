@@ -2,8 +2,8 @@ import core.escalonador
 
 class ShortestJobFirst(core.escalonador.Escalonador):
     
-    def __init__(self, cores=4):
-        core.escalonador.Escalonador.__init__(self, cores)
+    def __init__(self, cores=4, processos_aptos=10):
+        core.escalonador.Escalonador.__init__(self, cores, processos_aptos)
      
     def add_processo(self, processo):
         if len(self.aptos) == 0:

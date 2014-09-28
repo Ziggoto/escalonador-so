@@ -16,23 +16,28 @@
 			var ws = new WebSocket("ws://localhost:8888/websocket");
 			
 			ws.onopen = function() {
-			   //ws.send("Hello, world");
+			console.log("Desenha pela primeira vez");
+			$('canvas').drawImage({
+				source: 'static/escalonador.png',
+				x: 600, y: 200,
+				scale: 1,
+				fromCenter: true
+			 });
 			};
 
 			//TODO fazer a lógica para redesenhar...
 			ws.onmessage = function (evt) {
-			  alert(evt.data);
+			console.log("Desenhando...")
+			$('canvas').drawImage({
+				source: 'static/escalonador.png',
+				x: 600, y: 200,
+				scale: 1,
+				fromCenter: true
+			 });
 			};
 		</script>
 		<script>
 		$(function(){
-			$('canvas').drawImage({
-			  source: 'static/escalonador.png',
-			  x: 600, y: 200,
-			  scale: 1,
-			  fromCenter: true
-			});
-			
 			$("#envia").click(function(){
 				var algoritimo = $("#algoritmo").val();
 				var cores = $("#cores").val();
@@ -42,7 +47,7 @@
 					algoritimo: algoritimo,
 					cores: cores,
 					filas: filas
-				}
+				};
 
 				ws.send(JSON.stringify(msg));
 				console.log(msg);
@@ -65,10 +70,10 @@
 			</select>
 			
 			Nº de Core's:
-				<input type="text" size="1" name="cores" id="cores" placeholder="4" />
+				<input type="text" size="1" name="cores" id="cores" value="4" />
 
 			Tamanho da fila:
-				<input type="text" size="1" name="fila" id="fila" placeholder="4" />
+				<input type="text" size="1" name="fila" id="fila" value="4" />
 
 				<input type="button" id="envia" value="Enviar">
 		</p>
