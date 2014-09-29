@@ -72,9 +72,6 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
         else:
             self.pos = 0
         return None
-        
-f = FilaPrioridade()
-f.draw_img()
 
 #Teste parado:
 '''

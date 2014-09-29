@@ -68,7 +68,6 @@ class Desenho():
         
         #Desenha a fila de aptos
         fila = [self.fila_aptos] if not self.isFilaPrioridade else self.fila_aptos
-        print fila
         for k in range(self.multiplicador):
             for i in range(self.tamanho_fila/m + 1):
                 if self.tamanho_fila < m:
@@ -81,6 +80,7 @@ class Desenho():
                 for j in range(len(fila[k])):
                     Caixa(dr, (30+j*30, (105 + 35 * k) + self.tamanho_fonte+i*30), str(fila[k][cont]))
                     cont += 1
-                
-        self.im.save("../static/escalonador.png")        
+        
+        fn = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../static/escalonador.png")
+        self.im.save(fn)        
         self.quantum += 1

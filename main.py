@@ -2,7 +2,7 @@ from tornado import websocket
 import os.path
 import tornado.ioloop
 import tornado.web
-import core.escalonador
+import parser
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -14,13 +14,13 @@ class EchoWebSocket(websocket.WebSocketHandler):
         return True
 
     def open(self):
-        self.escalonador = core.escalonador.Escalonador()
+        self.parser = parser.Parser(self)
         print "Escalonador criado!"
 
     def on_message(self, message):
         #self.write_message(u"You said: " + message)
-        t = Teste(self)
-        t.envia_msg(message)
+        self.parser.receive_msg(message)
+        self.parser.start()
 
     def on_close(self):
         print "WebSocket closed"

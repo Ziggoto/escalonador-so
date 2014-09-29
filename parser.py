@@ -1,4 +1,5 @@
 import json
+import threading
 
 from core.escalonador import Escalonador
 
@@ -10,8 +11,9 @@ from arbitro.shortest_remaining_time import ShortestRemainingTime
 
 class Parser():
     
-    def __init__(self):
-        self.escalonador = Escalonador()
+    def __init__(self, conn):
+        self.escalonador = FIFO()
+        self.conn = conn
     
     def receive_msg(self, msg):
         self.msg = json.loads(msg)
@@ -38,4 +40,9 @@ class Parser():
             print "Erro ao inicializar o escalonador"
     
     def start(self):
-        pass
+        def repete():
+            self.escalonador.draw_img()
+            self.conn.write_message("desenha") #Manda msg
+            self.start()
+        t = threading.Timer(1, repete)
+        t.start()
