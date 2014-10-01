@@ -2,6 +2,7 @@ import json
 import threading
 
 from core.escalonador import Escalonador
+from core.processo import Processo
 
 from arbitro.fifo import FIFO
 from arbitro.prioridade import FilaPrioridade
@@ -17,32 +18,42 @@ class Parser():
     
     def receive_msg(self, msg):
         self.msg = json.loads(msg)
-        self.cores = int(self.msg['cores'])
-        self.filas = int(self.msg['filas']) #qtde de processos na fila
-        algoritimo = int(self.msg['algoritimo'])
+        opcao = int(self.msg['atividade'])
         
-        if algoritimo == 0:
-            #FIFO
-            self.escalonador = FIFO(self.cores, self.filas)
-        elif algoritimo == 1:
-            #Fila de Prioridade
-            self.escalonador = FilaPrioridade(self.cores, self.filas)
-        elif algoritimo == 2:
-            #Round Robin
-            self.escalonador = RoundRobin(self.cores, self.filas)
-        elif algoritimo == 3:
-            #Shortest Job First
-            self.escalonador = ShortestJobFirst(self.cores, self.filas)
-        elif algoritimo == 4:
-            #Shortest Remaining Time
-            self.escalonador = ShortestRemainingTime(self.cores, self.filas)
-        else:
-            print "Erro ao inicializar o escalonador"
+        def recria_escalonador():
+            self.cores = int(self.msg['cores'])
+            self.filas = int(self.msg['filas']) #qtde de processos na fila
+            algoritimo = int(self.msg['algoritimo'])
+            
+            if algoritimo == 0:
+                #FIFO
+                self.escalonador = FIFO(self.cores, self.filas)
+            elif algoritimo == 1:
+                #Fila de Prioridade
+                self.escalonador = FilaPrioridade(self.cores, self.filas)
+            elif algoritimo == 2:
+                #Round Robin
+                self.escalonador = RoundRobin(self.cores, self.filas)
+            elif algoritimo == 3:
+                #Shortest Job First
+                self.escalonador = ShortestJobFirst(self.cores, self.filas)
+            elif algoritimo == 4:
+                #Shortest Remaining Time
+                self.escalonador = ShortestRemainingTime(self.cores, self.filas)
+                
+        def add_processo():
+            self.escalonador.add_processo(Processo())
+    
+        if opcao == 0:
+            recria_escalonador()
+        elif opcao == 1:
+            add_processo()
     
     def start(self):
         def repete():
-            self.escalonador.draw_img()
-            self.conn.write_message("desenha") #Manda msg
+            code = self.escalonador.draw_img()
+            self.conn.write_message(code) #Manda codigo
+            self.escalonador.executa()
             self.start()
         t = threading.Timer(1, repete)
         t.start()

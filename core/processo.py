@@ -12,7 +12,6 @@
 import random
 
 class Processo():
-    
     def __init__(self, pid):
         self.tempo_necessario = random.randint(4, 20)
         self.prioridade = random.randint(0, 3)

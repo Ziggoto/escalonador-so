@@ -3,6 +3,8 @@ from processo import Processo
 from cores import Cores
 
 import os.path
+import io
+import base64
 
 class Caixa:
     width = 30
@@ -28,9 +30,10 @@ class Desenho():
         self.isFilaPrioridade = True if algoritimo == "Fila de Prioridade com RoundRobin" else False
         
         self.multiplicador = 4 if self.isFilaPrioridade else 1
+        tamanho_multiplicador = 10 if self.multiplicador == 4 else 1 #Gambiarra
         
         self.x = 1200
-        self.y = (130 + self.tamanho_fonte + (self.tamanho_fila / self.max_filas + 1)  * Caixa.height * self.multiplicador)
+        self.y = (130 + self.tamanho_fonte + (self.tamanho_fila / self.max_filas + 1)  * Caixa.height * tamanho_multiplicador)
         
         self.im = Image.new('RGB', (self.x, self.y), "white")
         self.dr = ImageDraw.Draw(self.im)
@@ -57,30 +60,38 @@ class Desenho():
         pos = 0
         for i in self.cores.cores:
             if(i == None):
-                Caixa(dr, (35+pos*30, 60), " ")
+                Caixa(dr, (35+pos*Caixa.width, 60), " ")
             else:
-                Caixa(dr, (35+pos*30, 60), str(i))
+                Caixa(dr, (35+pos*Caixa.width, 60), str(i))
             pos += 1
         
-        dr.text((30, 100), "Fila de aptos:", fill="black")
+        dr.text((30, 70+Caixa.height), "Fila de aptos:", fill="black")
         
-        m = self.max_filas 
+        m = self.max_filas #37
         
         #Desenha a fila de aptos
         fila = [self.fila_aptos] if not self.isFilaPrioridade else self.fila_aptos
         for k in range(self.multiplicador):
-            for i in range(self.tamanho_fila/m + 1):
-                if self.tamanho_fila < m:
-                    aux = self.tamanho_fila
+            tamanho = len(fila[k])
+            for i in range(tamanho/m + 1):
+                if tamanho < m:
+                    aux = tamanho
                 else:
                     aux = m
-                    self.tamanho_fila -= m
+                    tamanho -= m
                 
                 cont = 0
-                for j in range(len(fila[k])):
-                    Caixa(dr, (30+j*30, (105 + 35 * k) + self.tamanho_fonte+i*30), str(fila[k][cont]))
+                for j in range(aux):
+                    Caixa(dr, (30+j*Caixa.width, (105 + 35 * k * 2) + self.tamanho_fonte+i*30), str(fila[k][cont]))
                     cont += 1
         
-        fn = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../static/escalonador.png")
-        self.im.save(fn)        
         self.quantum += 1
+        
+        #Salva a imagem
+        output = io.BytesIO()
+        self.im.save(output, format='JPEG')
+        binary = output.getvalue()
+        encoded = base64.b64encode(binary)
+        return encoded
+        
+        

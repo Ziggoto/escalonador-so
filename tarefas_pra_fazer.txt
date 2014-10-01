@@ -2,7 +2,7 @@
 [x] 2. Gerar um padrão para as mensagens;
 [x] 3. Fazer a lógica para redesenhar no front-end;
 [x] 4. Terminar o parser;
-[.] 5. Fazer que o desenho se atualize periodicamente;
+[x] 5. Fazer que o desenho se atualize periodicamente;
 [ ] 6. Mudar a forma que os processos são desenhados (mostra tempo decrementando)
 [.] 7. Fazer desenhar a Fila de Prioridade com Round-Robin
  

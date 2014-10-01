@@ -33,7 +33,7 @@ class Escalonador():
     def draw_img(self):
         fila = self.aptos if self.algoritimo != "Fila de Prioridade com RoundRobin" else self.filas
         desenho = Desenho(cores=self.cores, algoritimo=self.algoritimo, fila_aptos=fila)
-        desenho.draw()
+        return desenho.draw()
     
     def executa(self):
         p = None
