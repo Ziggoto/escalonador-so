@@ -19,7 +19,7 @@ class Processo():
         self.estado = "esperando"
         self.pid = pid
         self.quantum_necessario = 4 - self.prioridade #Somente para o Fila de Prioridade
-        self.tempo_processando = 0 #Pros quantums
+        self.tempo_processando = 1 #Pros quantums
         
     def decrementa_tempo(self):
         self.tempo_necessario -= 1

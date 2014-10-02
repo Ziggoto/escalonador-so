@@ -40,8 +40,7 @@ class Escalonador():
     def executa(self):
         p = None
         if self.cores.is_empty() and len(self.aptos) == 0:
-            print "Caiu aqui"
-            return True
+            return False
         
         while not self.cores.is_full(): #Tem espaco em branco
             p = self.get_prox()
@@ -50,7 +49,7 @@ class Escalonador():
             self.cores.add_process(p) #Adiciona o processo no espaco em branco
             del self.aptos[0]
         self.quantum += 1
-        self.cores.processa()
+        return self.cores.processa()
     
     def get_prox(self):
         if len(self.aptos) > 0:

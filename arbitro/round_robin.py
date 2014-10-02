@@ -11,11 +11,11 @@ class RoundRobin(core.escalonador.Escalonador):
     def executa(self):
         for i in self.cores.cores:
             if i is not None and i.tempo_processando == self.tempo_quantum:
-                i.tempo_processando = 0
+                i.tempo_processando = 1
                 self.add_processo(i)
                 self.cores.rm_process(i)
         
-        core.escalonador.Escalonador.executa(self)
+        return core.escalonador.Escalonador.executa(self)
 
 '''
 f = RoundRobin(processos_aptos=40)

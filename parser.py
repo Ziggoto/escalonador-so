@@ -30,39 +30,40 @@ class Parser():
             
             if algoritimo == 0:
                 #FIFO
-                self.escalonador = FIFO(self.cores, self.filas)
+                self.escalonador = FIFO(cores=self.cores, processos_aptos=self.filas)
             elif algoritimo == 1:
                 #Fila de Prioridade
-                self.escalonador = FilaPrioridade(self.cores, self.filas)
+                self.escalonador = FilaPrioridade(cores=self.cores, processos_aptos=self.filas, tempo_quantum=self.tempo_quantum)
             elif algoritimo == 2:
                 #Round Robin
-                self.escalonador = RoundRobin(self.cores, self.filas)
+                self.escalonador = RoundRobin(cores=self.cores, processos_aptos=self.filas, tempo_quantum=self.tempo_quantum)
             elif algoritimo == 3:
                 #Shortest Job First
-                self.escalonador = ShortestJobFirst(self.cores, self.filas)
+                self.escalonador = ShortestJobFirst(cores=self.cores, processos_aptos=self.filas)
             elif algoritimo == 4:
                 #Shortest Remaining Time
-                self.escalonador = ShortestRemainingTime(self.cores, self.filas)
+                self.escalonador = ShortestRemainingTime(cores=self.cores, processos_aptos=self.filas, tempo_quantum=self.tempo_quantum)
                 
         def add_processo():
-            self.escalonador.add_processo(Processo(random.randint(self.aux, 256)))
-            self.aux += 1
+            print "Chegou"
+            #self.escalonador.add_processo(Processo(random.randint(self.aux, 256)))
+            #self.aux += 1
     
         if opcao == 0:
-            recria_escalonador()
+            return recria_escalonador()
         elif opcao == 1:
-            add_processo()
+            return add_processo()
     
     def start(self):
         def repete():
-            #code = self.escalonador.draw_img()
-            #self.conn.write_message(code) #Manda codigo
-            print self.escalonador.cores.cores
-            print self.escalonador.aptos
-            print "========="
+            code = self.escalonador.draw_img()
+            self.conn.write_message(code) #Manda codigo
+            #print self.escalonador.cores.cores
+            #print self.escalonador.aptos
+            #print "======"
             
             e = self.escalonador.executa()
-            print e
-            self.start()
-        t = threading.Timer(.01, repete)
+            if e:
+                self.start()
+        t = threading.Timer(1, repete)
         t.start()

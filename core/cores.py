@@ -57,3 +57,4 @@ class Cores:
                 p.tempo_processando += 1
             else:
                 self.cores[i] = None
+        return True

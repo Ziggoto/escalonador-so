@@ -18,6 +18,7 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
         self.pos = 0
         self.tempos = [4, 3, 2 , 1]
         
+        self.fila_da_vez = 0
         self.ordena()
         
     def ordena(self):
@@ -40,27 +41,29 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
                 self.f3.append(processo)
             else:
                 self.f4.append(processo)
-                    
+    
+    #O tempo do quantum nao ta sendo considerado                
     def executa(self):
-        for i in self.cores.cores:
-            if i is not None:
-                if i.quantum_necessario == 0:
-                    self.add_processo(i) #Recoloca em alguma fila
-                    self.cores.rm_process(i) #Tira do escalonador
-                else:
-                    i.quantum_necessario -= 1
-            
-                    
-        #Insere nos cores
-        p = None
-        while not self.cores.is_full():
-            p = self.get_prox()
-            if p == None:
-                break
-            self.cores.add_process(p)
-            del self.filas[self.pos][0]
-        self.quantum += 1
-        self.cores.processa()
+        if not self.is_finished():
+            for i in self.cores.cores:
+                if i is not None and i.tempo_processando == self.tempo_quantum:
+                    i.tempo_processando = 1
+                    if i.quantum_necessario == 0:
+                        self.add_processo(i) #Recoloca em alguma fila
+                        self.cores.rm_process(i) #Tira do escalonador
+                    else:
+                        i.quantum_necessario -= 1
+                        
+            #Insere nos cores
+            p = None
+            while not self.cores.is_full():
+                p = self.get_prox()
+                if p == None:
+                    break
+                self.cores.add_process(p)
+                del self.filas[self.pos][0]
+            self.quantum += 1
+            return self.cores.processa()
         
     def get_prox(self):
         pos_atual = self.pos
@@ -73,27 +76,28 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
         else:
             self.pos = 0
         return None
-
-#Teste parado:
-'''
-print "Fila de Alta Prioridade: ",
-print f.f1
-print "Fila de Media Prioridade: ",
-print f.f2
-print "Fila de Baixa Prioridade: ",
-print f.f3
-print "Fila de Baixissima Prioridade: ",
-print f.f4
-print f.filas
-
-print "=== Cores ===="
-print f.cores.cores
-f.executa()
-print f.cores.cores
-
-for i in range(10):
-    f.executa()
-
-    print f.cores.cores
-    print f.filas
-'''
+    
+    def is_finished(self):
+        t1 = len(self.f1)
+        t2 = len(self.f2)
+        t3 = len(self.f3)
+        t4 = len(self.f4)
+        t = [t1, t2, t3, t4]
+        if len(set(t)) == 1 and t1 == 0 and self.cores.is_empty():
+            return True
+        return False
+    
+    #Soh testes
+    def exibe(self):
+        print "Cores:",
+        print self.cores.cores
+        print "Fila de Alta Prioridade: ",
+        print self.f1
+        print "Fila de Media Prioridade: ",
+        print self.f2
+        print "Fila de Baixa Prioridade: ",
+        print self.f3
+        print "Fila de Baixissima Prioridade: ",
+        print self.f4
+        #print self.filas
+        print "====================="
