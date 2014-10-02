@@ -7,7 +7,7 @@ import base64
 import io
 
 
-f = RoundRobin(processos_aptos=20)
+f = RoundRobin(processos_aptos=256)
 
 f.executa()
 f.executa()

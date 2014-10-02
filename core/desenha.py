@@ -7,25 +7,29 @@ import io
 import base64
 
 class Caixa:
-    width = 30
-    height = 30
+    width = 80
+    height = 50
     
-    def __init__(self, dr, pos, processo):
+    def __init__(self, dr, pos, processo, cor="white"):
         self.dr = dr
         self.pos = pos
         self.x, self.y = pos
         self.processo = processo
         
-        nova_pos = ((self.x, self.y), (self.x + Caixa.width, self.y + Caixa.height))
-        dr.rectangle(nova_pos, fill="white", outline="black")
+        fn = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'FreeSansBold.ttf')
+        fonte_caixa = ImageFont.truetype(fn, 11)
         
-        dr.text((self.x + Caixa.width/3, self.y + Caixa.height/3), processo, fill="black")
+        nova_pos = ((self.x, self.y), (self.x + Caixa.width, self.y + Caixa.height))
+        dr.rectangle(nova_pos, fill=cor, outline="black")
+        
+        #dr.text((self.x + Caixa.width/3, self.y + Caixa.height/3), processo, fill="black")
         
         #Solucao porca:
-        #dr.text((self.x, self.y), "PID: "+str(processo), fill="black")
-        #dr.text((self.x, self.y+12), "Tempo Restante: "+str(processo), fill="black")
-        #dr.text((self.x, self.y+12*2), "Tempo Total: "+str(processo), fill="black")
-        #dr.text((self.x, self.y+12*3), "Prioridade: "+str(processo), fill="black")
+        if processo is not None:
+            dr.text((self.x+2, self.y+2), "PID: "+str(processo.pid), fill="black", font=fonte_caixa)
+            dr.text((self.x+2, self.y+10), "Tempo R.: "+str(processo.tempo_restante), fill="black", font=fonte_caixa)
+            dr.text((self.x+2, self.y+10*2), "Tempo T.: "+str(processo.tempo_necessario), fill="black", font=fonte_caixa)
+            dr.text((self.x+2, self.y+10*3), "Priori.: "+str(processo.prioridade), fill="black", font=fonte_caixa)
 
 class Desenho():
     
@@ -56,6 +60,7 @@ class Desenho():
         fn = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'FreeSansBold.ttf')
         self.fonte = ImageFont.truetype(fn, self.tamanho_fonte)
         self.fonte_titulo = ImageFont.truetype(fn, 22)
+        
         self.dr.setfont(self.fonte)
         
     def draw(self):
@@ -69,9 +74,9 @@ class Desenho():
         pos = 0
         for i in self.cores.cores:
             if(i == None):
-                Caixa(dr, (35+pos*Caixa.width, 60), " ")
+                Caixa(dr, (35+pos*Caixa.width, 60), None, "#00FF00")
             else:
-                Caixa(dr, (35+pos*Caixa.width, 60), str(i))
+                Caixa(dr, (35+pos*Caixa.width, 60), i, "#00FF00")
             pos += 1
         
         pos_inicial = 70+Caixa.height
@@ -94,7 +99,7 @@ class Desenho():
                 for j in range(aux):
                     Caixa(dr, (30+j*Caixa.width, 
                         ((pos_inicial + 5) + 35 * k * 2) \
-                                + self.tamanho_fonte+i*Caixa.height), str(fila[k][cont]))
+                                + self.tamanho_fonte+i*Caixa.height), fila[k][cont], "#FF5252")
                     cont += 1
         
         self.quantum += 1
