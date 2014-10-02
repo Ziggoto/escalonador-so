@@ -1,5 +1,6 @@
 import json
 import threading
+import random
 
 from core.escalonador import Escalonador
 from core.processo import Processo
@@ -24,6 +25,8 @@ class Parser():
             self.cores = int(self.msg['cores'])
             self.filas = int(self.msg['filas']) #qtde de processos na fila
             algoritimo = int(self.msg['algoritimo'])
+            self.tempo_quantum = int(self.msg['quantum'])
+            self.aux = self.filas
             
             if algoritimo == 0:
                 #FIFO
@@ -42,7 +45,8 @@ class Parser():
                 self.escalonador = ShortestRemainingTime(self.cores, self.filas)
                 
         def add_processo():
-            self.escalonador.add_processo(Processo())
+            self.escalonador.add_processo(Processo(random.randint(self.aux, 256)))
+            self.aux += 1
     
         if opcao == 0:
             recria_escalonador()
@@ -51,9 +55,14 @@ class Parser():
     
     def start(self):
         def repete():
-            code = self.escalonador.draw_img()
-            self.conn.write_message(code) #Manda codigo
-            self.escalonador.executa()
+            #code = self.escalonador.draw_img()
+            #self.conn.write_message(code) #Manda codigo
+            print self.escalonador.cores.cores
+            print self.escalonador.aptos
+            print "========="
+            
+            e = self.escalonador.executa()
+            print e
             self.start()
-        t = threading.Timer(1, repete)
+        t = threading.Timer(.01, repete)
         t.start()

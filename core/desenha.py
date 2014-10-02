@@ -20,20 +20,34 @@ class Caixa:
         dr.rectangle(nova_pos, fill="white", outline="black")
         
         dr.text((self.x + Caixa.width/3, self.y + Caixa.height/3), processo, fill="black")
+        
+        #Solucao porca:
+        #dr.text((self.x, self.y), "PID: "+str(processo), fill="black")
+        #dr.text((self.x, self.y+12), "Tempo Restante: "+str(processo), fill="black")
+        #dr.text((self.x, self.y+12*2), "Tempo Total: "+str(processo), fill="black")
+        #dr.text((self.x, self.y+12*3), "Prioridade: "+str(processo), fill="black")
 
 class Desenho():
     
-    def __init__(self, cores=Cores(), algoritimo="", fila_aptos = []):
-        self.tamanho_fila = len(fila_aptos)
+    def __init__(self, escalonador):
+        fila = escalonador.aptos if escalonador.algoritimo != "Fila de Prioridade com RoundRobin" else escalonador.filas
+        self.quantum = escalonador.quantum
+        self.algoritimo = escalonador.algoritimo
+        self.cores = escalonador.cores
+        self.fila_aptos = fila
+        
+        self.tamanho_fila = len(self.fila_aptos)
         self.tamanho_fonte = 12
-        self.max_filas = 37 #Calculado a partir de muitas e muitas tentativas
-        self.isFilaPrioridade = True if algoritimo == "Fila de Prioridade com RoundRobin" else False
+        self.isFilaPrioridade = True if self.algoritimo == "Fila de Prioridade com RoundRobin" else False
         
         self.multiplicador = 4 if self.isFilaPrioridade else 1
         tamanho_multiplicador = 10 if self.multiplicador == 4 else 1 #Gambiarra
         
         self.x = 1200
-        self.y = (130 + self.tamanho_fonte + (self.tamanho_fila / self.max_filas + 1)  * Caixa.height * tamanho_multiplicador)
+        
+        self.max_filas = (1200 / Caixa.width) - 2 #Calculado a partir de muitas e muitas tentativas
+        self.y = (130 + self.tamanho_fonte + (self.tamanho_fila / self.max_filas + 1) \
+                   * Caixa.height * tamanho_multiplicador)
         
         self.im = Image.new('RGB', (self.x, self.y), "white")
         self.dr = ImageDraw.Draw(self.im)
@@ -43,11 +57,6 @@ class Desenho():
         self.fonte = ImageFont.truetype(fn, self.tamanho_fonte)
         self.fonte_titulo = ImageFont.truetype(fn, 22)
         self.dr.setfont(self.fonte)
-        
-        self.quantum = 1
-        self.algoritimo = algoritimo
-        self.cores = cores
-        self.fila_aptos = fila_aptos
         
     def draw(self):
         dr = self.dr
@@ -65,9 +74,10 @@ class Desenho():
                 Caixa(dr, (35+pos*Caixa.width, 60), str(i))
             pos += 1
         
-        dr.text((30, 70+Caixa.height), "Fila de aptos:", fill="black")
+        pos_inicial = 70+Caixa.height
+        dr.text((30, pos_inicial), "Fila de aptos:", fill="black") #Ta certo...
         
-        m = self.max_filas #37
+        m = self.max_filas
         
         #Desenha a fila de aptos
         fila = [self.fila_aptos] if not self.isFilaPrioridade else self.fila_aptos
@@ -82,7 +92,9 @@ class Desenho():
                 
                 cont = 0
                 for j in range(aux):
-                    Caixa(dr, (30+j*Caixa.width, (105 + 35 * k * 2) + self.tamanho_fonte+i*30), str(fila[k][cont]))
+                    Caixa(dr, (30+j*Caixa.width, 
+                        ((pos_inicial + 5) + 35 * k * 2) \
+                                + self.tamanho_fonte+i*Caixa.height), str(fila[k][cont]))
                     cont += 1
         
         self.quantum += 1

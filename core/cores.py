@@ -38,13 +38,22 @@ class Cores:
             if self.cores[i] == None:
                 return False
         return True
+    
+    def is_empty(self):
+        if len(set(self.cores)) == 1 and self.cores[0] is None:
+            return True
+        else:
+            return False
        
     # Diminui o tempo restante dos processos
     def processa(self):
         p = None
         for i in range(self.max):
             p = self.cores[i]
-            if p.tempo_restante > 1 and p.tempo_restante is not None:
+            if p == None:
+                pass
+            elif p.tempo_restante is not None and p.tempo_restante > 1:
                 p.tempo_restante -= 1
+                p.tempo_processando += 1
             else:
                 self.cores[i] = None

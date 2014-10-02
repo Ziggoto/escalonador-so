@@ -31,17 +31,23 @@ class Escalonador():
         self.aptos.append(processo)
     
     def draw_img(self):
-        fila = self.aptos if self.algoritimo != "Fila de Prioridade com RoundRobin" else self.filas
-        desenho = Desenho(cores=self.cores, algoritimo=self.algoritimo, fila_aptos=fila)
+        #fila = self.aptos if self.algoritimo != "Fila de Prioridade com RoundRobin" else self.filas
+        #desenho = Desenho(cores=self.cores, algoritimo=self.algoritimo, fila_aptos=fila)
+        desenho = Desenho(self)
         return desenho.draw()
     
+    #TODO erro aqui...
     def executa(self):
         p = None
-        while not self.cores.is_full():
+        if self.cores.is_empty() and len(self.aptos) == 0:
+            print "Caiu aqui"
+            return True
+        
+        while not self.cores.is_full(): #Tem espaco em branco
             p = self.get_prox()
             if p == None:
                 break
-            self.cores.add_process(p)
+            self.cores.add_process(p) #Adiciona o processo no espaco em branco
             del self.aptos[0]
         self.quantum += 1
         self.cores.processa()
@@ -51,6 +57,11 @@ class Escalonador():
             p = self.aptos[0]
             return p
         return None
+    
+    def is_finished(self):
+        if self.cores.is_empty() and len(self.aptos) == 0:
+            return True
+        return False
     
     #Somente testes
     def exibe(self):

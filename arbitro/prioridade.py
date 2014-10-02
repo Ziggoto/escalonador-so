@@ -1,11 +1,12 @@
+from core.desenha import Desenho
 from core.processo import Processo
 import arbitro.round_robin
 import core.escalonador
 
 class FilaPrioridade(arbitro.round_robin.RoundRobin):
     
-    def __init__(self, cores=4, processos_aptos=10):
-        arbitro.round_robin.RoundRobin.__init__(self, cores, processos_aptos)
+    def __init__(self, tempo_quantum=4, cores=4, processos_aptos=10):
+        arbitro.round_robin.RoundRobin.__init__(self, tempo_quantum, cores, processos_aptos)
         self.algoritimo = "Fila de Prioridade com RoundRobin"
         
         self.f1 = [] # Fila de alta prioridade
