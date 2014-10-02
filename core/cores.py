@@ -44,6 +44,13 @@ class Cores:
             return True
         else:
             return False
+    
+    def get_empty_cores(self):
+        lista = []
+        for i in self.cores:
+            if i == None:
+                lista.append(i)
+        return lista
        
     # Diminui o tempo restante dos processos
     def processa(self):

@@ -24,8 +24,7 @@ class Escalonador():
         self.algoritimo = ""
         
         for i in range(processos_aptos):
-            self.aptos.append(Processo(i))
-        
+            self.add_processo(Processo(i))
     
     def add_processo(self, processo):
         self.aptos.append(processo)

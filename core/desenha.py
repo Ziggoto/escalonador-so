@@ -20,7 +20,7 @@ class Caixa:
         fonte_caixa = ImageFont.truetype(fn, 11)
         
         nova_pos = ((self.x, self.y), (self.x + Caixa.width, self.y + Caixa.height))
-        dr.rectangle(nova_pos, fill=cor, outline="black")
+        dr.rectangle(nova_pos, fill=cor if processo is not None else "white", outline="black")
         
         #dr.text((self.x + Caixa.width/3, self.y + Caixa.height/3), processo, fill="black")
         

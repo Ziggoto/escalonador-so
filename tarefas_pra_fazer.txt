@@ -1,4 +1,4 @@
-[?] 1. Consertar o Fila de Prioridade com Round-Robin;
+[x] 1. Consertar o Fila de Prioridade com Round-Robin; *
 [x] 2. Gerar um padrão para as mensagens;
 [x] 3. Fazer a lógica para redesenhar no front-end;
 [x] 4. Terminar o parser;
@@ -10,3 +10,5 @@
  
 x = Atividades concluídas
 . = Atividades parcialmente concluídas
+
+* = Apareceu no console um erro mas gráficamente parecia tudo okay

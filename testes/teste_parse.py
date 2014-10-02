@@ -1,5 +1,6 @@
 from parser import Parser
 from arbitro.round_robin import RoundRobin 
+from core.processo import Processo
 
 '''
 0 = FIFO
@@ -24,3 +25,11 @@ msg = '''{
 p.receive_msg(msg)
 p.start()
 
+import threading
+
+def oi():
+    print "Foi"
+    p.escalonador.add_processo(Processo(50))
+    
+t = threading.Timer(5, oi)
+t.start()

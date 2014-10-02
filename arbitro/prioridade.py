@@ -55,27 +55,52 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
                         i.quantum_necessario -= 1
                         
             #Insere nos cores
-            p = None
+            processos = None
             while not self.cores.is_full():
-                p = self.get_prox()
-                if p == None:
-                    break
-                self.cores.add_process(p)
-                del self.filas[self.pos][0]
+                processos = self.get_prox(len(self.cores.get_empty_cores()))
+                for p in processos:
+                    self.cores.add_process(p)
+                    #del self.filas[self.pos][0]
+                    self.retira_processo(p)
             self.quantum += 1
             return self.cores.processa()
         
-    def get_prox(self):
+    def retira_processo(self, processo):
+        index_i = 0
+        for i in self.filas:
+            index_j = 0
+            for j in i:
+                if j == processo:
+                    del self.filas[index_i][index_j]
+            index_j += 1
+        index_i += 1
+        
+    def get_prox(self, qtde=1):
+        lista = []
         pos_atual = self.pos
         fila = self.filas[pos_atual]
-        if(len(fila) > 0):
-            return fila[0]
-        elif pos_atual < 3:
-            self.pos += 1
-            return self.get_prox() #Recursao
+        
+        if len(fila) > qtde:
+            for i in range(qtde):
+                lista.append(fila[i])
+            #Incrementa
+            if pos_atual < 3:
+                self.pos += 1
+            else:
+                self.pos = 0
         else:
-            self.pos = 0
-        return None
+            aux = qtde - len(fila) #pega os que sobraram
+            for i in range(len(fila)):
+                lista.append(fila[i])
+            #Incrementa
+            if pos_atual < 3:
+                self.pos += 1
+            else:
+                self.pos = 0
+            for i in range(aux):
+                lista.append(fila[i])    
+        
+        return lista
     
     def is_finished(self):
         t1 = len(self.f1)
