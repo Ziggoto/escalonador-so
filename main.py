@@ -19,8 +19,9 @@ class EchoWebSocket(websocket.WebSocketHandler):
 
     def on_message(self, message):
         #self.write_message(u"You said: " + message)
-        self.parser.receive_msg(message)
-        self.parser.start()
+        r = self.parser.receive_msg(message)
+        if r:
+            self.parser.start()
 
     def on_close(self):
         print "WebSocket closed"

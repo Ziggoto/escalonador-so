@@ -43,11 +43,13 @@ class Parser():
             elif algoritimo == 4:
                 #Shortest Remaining Time
                 self.escalonador = ShortestRemainingTime(cores=self.cores, processos_aptos=self.filas, tempo_quantum=self.tempo_quantum)
+            return 1
                 
         def add_processo():
-            print "Chegou"
-            #self.escalonador.add_processo(Processo(random.randint(self.aux, 256)))
-            #self.aux += 1
+            #print "Chegou"
+            self.escalonador.add_processo(Processo(random.randint(self.aux, 256)))
+            self.aux += 1
+            return 0
     
         if opcao == 0:
             return recria_escalonador()
