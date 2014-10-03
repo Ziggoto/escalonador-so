@@ -21,54 +21,47 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
         for i in range(processos_aptos):
             self.add_processo(Processo(i))
         
-        self.fila_da_vez = 0
-        self.ordena()
+        #self.fila_da_vez = 0
+        #self.ordena()
         
     def ordena(self):
-        for i in self.aptos:
-            if i.prioridade == 0:
-                self.f1.append(i)
-            elif i.prioridade == 1:
-                self.f2.append(i)
-            elif i.prioridade == 2:
-                self.f3.append(i)
-            else:
-                self.f4.append(i)
+        pass
                 
     def add_processo(self, processo):
-        if processo.prioridade == 0:
-            self.f1.append(processo)
-        elif processo.prioridade == 1:
-            self.f2.append(processo)
-        elif processo.prioridade == 2:
-            self.f3.append(processo)
-        else:
-            self.f4.append(processo)
+        return self.filas[processo.prioridade].append(processo)
     
-    #O tempo do quantum nao ta sendo considerado                
     def executa(self):
+        def escalona():
+            #Equivalente ao executa() do Escalonador
+            if self.is_finished():
+                return False
+            
+            processos = None
+            while not self.cores.is_full(): #Tem espaco em branco
+                processos = self.get_prox(len(self.cores.get_empty_cores()))
+                if len(processos) == 0:
+                    break
+                
+                for p in processos:
+                    self.cores.add_process(p) #Adiciona o processo no espaco em branco
+                    self.retira_processo(p)
+            self.quantum += 1
+            return self.cores.processa()
+        
         if not self.is_finished():
+            #Equivalente ao executa() do RoundRobin:
             for i in self.cores.cores:
                 if i is not None and i.tempo_processando == self.tempo_quantum:
-                    i.tempo_processando = 1
+                    i.tempo_processando = 0
                     if i.quantum_necessario == 0:
                         self.add_processo(i) #Recoloca em alguma fila
                         self.cores.rm_process(i) #Tira do escalonador
                     else:
                         i.quantum_necessario -= 1
-                        
-            #Insere nos cores
-            processos = None
-            while not self.cores.is_full():
-                processos = self.get_prox(len(self.cores.get_empty_cores()))
-                for p in processos:
-                    self.cores.add_process(p)
-                    #del self.filas[self.pos][0]
-                    self.retira_processo(p)
-            self.quantum += 1
-            return self.cores.processa()
+            return escalona()
+        return False #Pra nao repetir mais
+
     
-    #Concertar isso aqui    
     def retira_processo(self, processo):
         try:
             for l in self.filas:
@@ -83,30 +76,24 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
         
     def get_prox(self, qtde=1):
         lista = []
-        pos_atual = self.pos
-        fila = self.filas[pos_atual]
+        fila = self.filas[self.pos]
         
-        if len(fila) > qtde:
-            for i in range(qtde):
+        cont = 0
+        max = len(fila) if len(fila) < qtde else qtde
+        while max > 0 or cont < 3:
+            for i in range(max):
                 lista.append(fila[i])
-            #Incrementa
-            if pos_atual < 3:
-                self.pos += 1
-            else:
-                self.pos = 0
-        else:
-            aux = qtde - len(fila) #pega os que sobraram
-            for i in range(len(fila)):
-                lista.append(fila[i])
-            #Incrementa
-            if pos_atual < 3:
-                self.pos += 1
-            else:
-                self.pos = 0
-            for i in range(aux):
-                lista.append(fila[i])    
+                max -= 1 
+            self.muda_fila()
+            cont += 1
         
         return lista
+    
+    def muda_fila(self):
+        if self.pos < 3:
+            self.pos += 1
+        else:
+            self.pos = 0
     
     def is_finished(self):
         t1 = len(self.f1)

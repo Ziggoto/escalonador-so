@@ -1,9 +1,8 @@
 from arbitro.prioridade import FilaPrioridade
 
-f = FilaPrioridade(processos_aptos=40)
-f.exibe()
+f = FilaPrioridade(processos_aptos=15)
 
-for i in range(30):
-   f.executa()
-   f.exibe()
-    
+r = f.executa()
+while r:
+    r = f.executa()
+    print f.exibe()

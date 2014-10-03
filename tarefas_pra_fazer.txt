@@ -5,8 +5,8 @@
 [x] 5. Fazer que o desenho se atualize periodicamente;
 [x] 6. Mudar a forma que os processos são desenhados (mostra tempo decrementando)
 [x] 7. Fazer desenhar a Fila de Prioridade com Round-Robin
-[.] 8. Testar todos os algoritimos 
-[ ] 9. Ajeitar o botão de inserir
+[x] 8. Testar todos os algoritimos 
+[x] 9. Ajeitar o botão de inserir
  
 x = Atividades concluídas
 . = Atividades parcialmente concluídas

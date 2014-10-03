@@ -38,7 +38,6 @@ class Escalonador():
         desenho = Desenho(self)
         return desenho.draw()
     
-    #TODO erro aqui...
     def executa(self):
         p = None
         if self.cores.is_empty() and len(self.aptos) == 0:
