@@ -46,8 +46,7 @@ class Parser():
             return 1
                 
         def add_processo():
-            #print "Chegou"
-            self.escalonador.add_processo(Processo(random.randint(self.aux, 256)))
+            self.escalonador.add_processo(Processo(self.aux))
             self.aux += 1
             return 0
     

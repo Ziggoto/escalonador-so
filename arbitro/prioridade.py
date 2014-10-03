@@ -18,6 +18,9 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
         self.pos = 0
         self.tempos = [4, 3, 2 , 1]
         
+        for i in range(processos_aptos):
+            self.add_processo(Processo(i))
+        
         self.fila_da_vez = 0
         self.ordena()
         
@@ -33,14 +36,14 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
                 self.f4.append(i)
                 
     def add_processo(self, processo):
-            if processo.prioridade == 0:
-                self.f1.append(processo)
-            elif processo.prioridade == 1:
-                self.f2.append(processo)
-            elif processo.prioridade == 2:
-                self.f3.append(processo)
-            else:
-                self.f4.append(processo)
+        if processo.prioridade == 0:
+            self.f1.append(processo)
+        elif processo.prioridade == 1:
+            self.f2.append(processo)
+        elif processo.prioridade == 2:
+            self.f3.append(processo)
+        else:
+            self.f4.append(processo)
     
     #O tempo do quantum nao ta sendo considerado                
     def executa(self):
@@ -64,16 +67,19 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
                     self.retira_processo(p)
             self.quantum += 1
             return self.cores.processa()
-        
+    
+    #Concertar isso aqui    
     def retira_processo(self, processo):
-        index_i = 0
-        for i in self.filas:
-            index_j = 0
-            for j in i:
-                if j == processo:
-                    del self.filas[index_i][index_j]
-            index_j += 1
-        index_i += 1
+        try:
+            for l in self.filas:
+                try:
+                    l.remove(processo)
+                    return True
+                except ValueError:
+                    continue
+            return False
+        except AttributeError:
+            return False
         
     def get_prox(self, qtde=1):
         lista = []
