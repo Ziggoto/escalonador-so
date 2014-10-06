@@ -33,6 +33,7 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
     def executa(self):
         def escalona():
             #Equivalente ao executa() do Escalonador
+            #Adiciona processo aos cores
             if self.is_finished():
                 return False
             
@@ -41,7 +42,6 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
                 processos = self.get_prox(len(self.cores.get_empty_cores()))
                 if len(processos) == 0:
                     break
-                
                 for p in processos:
                     self.cores.add_process(p) #Adiciona o processo no espaco em branco
                     self.retira_processo(p)
@@ -50,6 +50,7 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
         
         if not self.is_finished():
             #Equivalente ao executa() do RoundRobin:
+            #Retira dos cores processos "vencidos"
             for i in self.cores.cores:
                 if i is not None and i.tempo_processando == self.tempo_quantum:
                     i.tempo_processando = 0
@@ -80,11 +81,13 @@ class FilaPrioridade(arbitro.round_robin.RoundRobin):
         
         cont = 0
         max = len(fila) if len(fila) < qtde else qtde
-        while max > 0 or cont < 3:
+        while max >= 1 or cont <= 4:
             for i in range(max):
                 lista.append(fila[i])
-                max -= 1 
+                qtde -= 1 
             self.muda_fila()
+            fila = self.filas[self.pos]
+            max = len(fila) if len(fila) < qtde else qtde
             cont += 1
         
         return lista

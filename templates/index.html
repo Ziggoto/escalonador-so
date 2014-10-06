@@ -57,26 +57,6 @@
 				var msg = {atividade: 1};
 				ws.send(JSON.stringify(msg));
 			});
-
-			//Tentativa de leitura de mouse
-			$("#escalonador").mousemove(function(event) {
-		        x = event.pageX;
-		        y = event.pageY;
-		        //console.log("("+x+", "+y+")");
-		        if(x >= 85 && x < 117 && y >= 172 && y<=202){
-		        	console.log("1º core");
-		        }
-		        else if(x >= 117 && x < 147 && y >= 172 && y<=202){
-		        	console.log("2º core");
-		        }
-		        else if(x >= 147 && x < 177 && y >= 172 && y<=202){
-		        	console.log("3º core");
-		        }
-		        else if(x >= 177 && x < 207 && y >= 172 && y<=202){
-		        	console.log("4º core");
-		        }
-
-			});
 		});
 		</script>
 		
