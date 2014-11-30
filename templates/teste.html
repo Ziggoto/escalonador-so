@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<title>Testes</title>
+		<script type="text/javascript" src="../static/jquery-2.1.1.min.js"></script>
+		<script>
+			$(function(){
+				console.log("Iniciado");
+
+				function desenha(){
+					console.log("Desenha...");
+					t = new Date().getTime();
+					$("#escalonador").attr("src", "../static/escalonador.png?t="+t);
+				}
+
+				setInterval(desenha, 1000)
+			});
+		</script>
+	</head>
+	<body>
+		<img id="escalonador" src="">
+	</body>
+</html>

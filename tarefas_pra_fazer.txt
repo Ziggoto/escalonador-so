@@ -1,0 +1,9 @@
+Memória:
+
+[x] Fazer o escalonador adicionar processos na memória RAM
+[ ] Algoritimo de junção de processos
+[ ] Recolocar o processo no core se seu processo tiver na fila de aptos
+
+Disco:
+
+[ ] Gerar o arquivo em mídia física
