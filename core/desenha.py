@@ -29,7 +29,11 @@ class Caixa:
             dr.text((self.x+2, self.y+2), "PID: "+str(processo.pid), fill="black", font=fonte_caixa)
             dr.text((self.x+2, self.y+10), "Tempo R.: "+str(processo.tempo_restante), fill="black", font=fonte_caixa)
             dr.text((self.x+2, self.y+10*2), "Tempo T.: "+str(processo.tempo_necessario), fill="black", font=fonte_caixa)
+<<<<<<< HEAD
             dr.text((self.x+2, self.y+10*3), "Memo.: "+str(processo.memoria_necessaria), fill="black", font=fonte_caixa)
+=======
+            dr.text((self.x+2, self.y+10*3), "Priori.: "+str(processo.prioridade), fill="black", font=fonte_caixa)
+>>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
 
 class Desenho():
     
@@ -38,7 +42,10 @@ class Desenho():
         self.quantum = escalonador.quantum
         self.algoritimo = escalonador.algoritimo
         self.cores = escalonador.cores
+<<<<<<< HEAD
         self.RAM = escalonador.memoria.RAM
+=======
+>>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
         self.fila_aptos = fila
         
         self.tamanho_fila = len(self.fila_aptos)
@@ -52,7 +59,11 @@ class Desenho():
         
         self.max_filas = (1200 / Caixa.width) - 2 #Calculado a partir de muitas e muitas tentativas
         self.y = (130 + self.tamanho_fonte + (self.tamanho_fila / self.max_filas + 1) \
+<<<<<<< HEAD
                    * Caixa.height * tamanho_multiplicador) + 100
+=======
+                   * Caixa.height * tamanho_multiplicador)
+>>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
         
         self.im = Image.new('RGB', (self.x, self.y), "white")
         self.dr = ImageDraw.Draw(self.im)
@@ -79,6 +90,7 @@ class Desenho():
             else:
                 Caixa(dr, (35+pos*Caixa.width, 60), i, "#00FF00")
             pos += 1
+<<<<<<< HEAD
 
         #Desenha a Memoria Virtual
         blocos_ram = len(self.RAM.pos)
@@ -96,6 +108,14 @@ class Desenho():
         
         m = self.max_filas
 
+=======
+        
+        pos_inicial = 70+Caixa.height
+        dr.text((30, pos_inicial), "Fila de aptos:", fill="black") #Ta certo...
+        
+        m = self.max_filas
+        
+>>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
         #Desenha a fila de aptos
         fila = [self.fila_aptos] if not self.isFilaPrioridade else self.fila_aptos
         for k in range(self.multiplicador):
@@ -121,4 +141,10 @@ class Desenho():
         self.im.save(output, format='JPEG')
         binary = output.getvalue()
         encoded = base64.b64encode(binary)
+<<<<<<< HEAD
         return encoded
+=======
+        return encoded
+        
+        
+>>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490

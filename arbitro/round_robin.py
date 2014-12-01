@@ -2,12 +2,21 @@ import core.escalonador
 
 class RoundRobin(core.escalonador.Escalonador):
     
+<<<<<<< HEAD
     def __init__(self, tempo_quantum=4, cores=4, processos_aptos=10, tamanho_ram=4):
         core.escalonador.Escalonador.__init__(self, cores, processos_aptos, tamanho_ram)
         self.algoritimo = "Round Robin"
         self.tempo_quantum = tempo_quantum
         self.tentativa = 1
 
+=======
+    def __init__(self, tempo_quantum=4, cores=4, processos_aptos=10):
+        core.escalonador.Escalonador.__init__(self, cores, processos_aptos)
+        self.algoritimo = "Round Robin"
+        self.tempo_quantum = tempo_quantum
+        self.tentativa = 1
+        
+>>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
     def executa(self):
         for i in self.cores.cores:
             if i is not None and i.tempo_processando == self.tempo_quantum:

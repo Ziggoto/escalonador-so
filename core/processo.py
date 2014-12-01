@@ -20,7 +20,10 @@ class Processo():
         self.pid = pid
         self.quantum_necessario = 4 - self.prioridade #Somente para o Fila de Prioridade
         self.tempo_processando = 1 #Pros quantums
+<<<<<<< HEAD
         self.memoria_necessaria = 2 ** random.randint(9, 11)
+=======
+>>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
         
     def decrementa_tempo(self):
         self.tempo_necessario -= 1
