@@ -102,7 +102,7 @@ class Memoria():
 
     def malloc(self, processo):
         '''
-        Aloca usando o conceito do Merge-Sort.
+        Aloca usando o conceito do Merge-fit.
 
         Minha lógica:
             - Se a memória necessária do objeto for menor que a do bloco. Aloca normal
@@ -128,7 +128,7 @@ class Memoria():
 
     def merge(self, b, tamanho):
         '''
-        Lógica do Merge-sort.
+        Lógica do Merge-fit.
         :param b: bloco a ser mesclado
         :param tamanho: tamanho minimo pro novo bloco ter
         :return: Referência ao novo bloco
