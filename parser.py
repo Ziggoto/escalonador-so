@@ -14,11 +14,7 @@ from arbitro.shortest_remaining_time import ShortestRemainingTime
 class Parser():
     
     def __init__(self, conn):
-<<<<<<< HEAD
         self.escalonador = RoundRobin()
-=======
-        self.escalonador = FIFO()
->>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
         self.conn = conn
     
     def receive_msg(self, msg):
@@ -31,10 +27,7 @@ class Parser():
             algoritimo = int(self.msg['algoritimo'])
             self.tempo_quantum = int(self.msg['quantum'])
             self.aux = self.filas
-<<<<<<< HEAD
             tamanho_ram = int(self.msg['tamanho_ram'])
-=======
->>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
             
             if algoritimo == 0:
                 #FIFO
@@ -44,11 +37,7 @@ class Parser():
                 self.escalonador = FilaPrioridade(cores=self.cores, processos_aptos=self.filas, tempo_quantum=self.tempo_quantum)
             elif algoritimo == 2:
                 #Round Robin
-<<<<<<< HEAD
                 self.escalonador = RoundRobin(cores=self.cores, processos_aptos=self.filas, tempo_quantum=self.tempo_quantum, tamanho_ram=tamanho_ram)
-=======
-                self.escalonador = RoundRobin(cores=self.cores, processos_aptos=self.filas, tempo_quantum=self.tempo_quantum)
->>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
             elif algoritimo == 3:
                 #Shortest Job First
                 self.escalonador = ShortestJobFirst(cores=self.cores, processos_aptos=self.filas)
@@ -74,11 +63,6 @@ class Parser():
             #print self.escalonador.cores.cores
             #print self.escalonador.aptos
             #print "======"
-<<<<<<< HEAD
-
-=======
-            
->>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
             e = self.escalonador.executa()
             if e:
                 self.start()

@@ -19,10 +19,6 @@
 				console.log("Iniciando protocolo de comunição");
 			};
 
-<<<<<<< HEAD
-=======
-			//TODO fazer a lógica para redesenhar...
->>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
 			ws.onmessage = function (evt) {
 				code = evt.data;
 				console.log("Desenha");
@@ -32,18 +28,11 @@
 		<script>
 		$(function(){
 			$("#envia").click(function(){
-<<<<<<< HEAD
 				var algoritimo = "2"; //Valor do RoundRobin
 				var cores = $("#cores").val();
 				var filas = $("#fila").val();
 				var quantum = $("#tempo_quantum").val();
                 var tamanho_ram = $("#tamanho_ram").val();
-=======
-				var algoritimo = $("#algoritmo").val();
-				var cores = $("#cores").val();
-				var filas = $("#fila").val();
-				var quantum = $("#tempo_quantum").val();
->>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
 
 				if(!(cores >= 1 && cores <= 64) || !(quantum >= 2 && quantum <= 20)){
 					console.log("Paramêtros Incorretos");
@@ -55,12 +44,8 @@
 					algoritimo: algoritimo,
 					cores: cores,
 					filas: filas,
-<<<<<<< HEAD
 					quantum: quantum,
-                    tamanho_ram: tamanho_ram
-=======
-					quantum: quantum
->>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
+                    			tamanho_ram: tamanho_ram
 				};
 
 				ws.send(JSON.stringify(msg));
@@ -82,10 +67,7 @@
 	<p>
 	<table>
 		<tr>
-<<<<<<< HEAD
             <!--
-=======
->>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
 			<td>
 				Selecione o tipo de algoritimo:
 				<select id="algoritmo">
@@ -96,10 +78,7 @@
 					<option value="4">Shortest Remaining Time</option>
 				</select>
 			</td>
-<<<<<<< HEAD
 			-->
-=======
->>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
 			<td>
 				Nº de Core's:
 				<input type="text" size="1" name="cores" id="cores" value="4" />	
@@ -113,14 +92,11 @@
 			<input type="text" size="1" name="tempo_quantum" id="tempo_quantum" value="4" />
 			</td>
 			<td>
-<<<<<<< HEAD
 			<td>
 				Tamanho da RAM (em MB):
 			<input type="text" size="1" name="tamanho_ram" id="tamanho_ram" value="4" />
 			</td>
 			<td>
-=======
->>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
 				<input type="button" id="envia" value="Enviar">
 			</td>
 		</tr>

@@ -1,15 +1,9 @@
 class Cores:
     
-<<<<<<< HEAD
     def __init__(self, memoria, max=4):
         self.max = max
         self.cores = []
         self.memoria = memoria
-=======
-    def __init__(self, max=4):
-        self.max = max
-        self.cores = []
->>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
         
         for i in range(self.max):
             self.cores.append(None)
@@ -29,15 +23,12 @@ class Cores:
                 if self.cores[i] == process:
                     self.cores[i] = None
                     break
-<<<<<<< HEAD
-
+    
     def is_processing(self, processo):
         for i in self.cores:
             if i == processo:
                 return True
         return False
-=======
->>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
     
     def is_number(self, variable):
         if type(variable) == type(1):
@@ -79,11 +70,8 @@ class Cores:
                 p.tempo_restante -= 1
                 p.tempo_processando += 1
             else:
-<<<<<<< HEAD
                 #Desaloca a memoria:
                 self.memoria.dealloc(self.cores[i])
                 #Aqui mata o processo:
-=======
->>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
                 self.cores[i] = None
         return True

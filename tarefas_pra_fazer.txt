@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Memória:
 
 [x] Fazer o escalonador adicionar processos na memória RAM
@@ -8,19 +7,3 @@ Memória:
 Disco:
 
 [ ] Gerar o arquivo em mídia física
-=======
-[x] 1. Consertar o Fila de Prioridade com Round-Robin; *
-[x] 2. Gerar um padrão para as mensagens;
-[x] 3. Fazer a lógica para redesenhar no front-end;
-[x] 4. Terminar o parser;
-[x] 5. Fazer que o desenho se atualize periodicamente;
-[x] 6. Mudar a forma que os processos são desenhados (mostra tempo decrementando)
-[x] 7. Fazer desenhar a Fila de Prioridade com Round-Robin
-[x] 8. Testar todos os algoritimos 
-[x] 9. Ajeitar o botão de inserir
- 
-x = Atividades concluídas
-. = Atividades parcialmente concluídas
-
-* = Apareceu no console um erro mas gráficamente parecia tudo okay
->>>>>>> 9d85dfde7b76008f6842309b231b3b9009670490
